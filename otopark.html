@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVM Otopark Yönetim Sistemi</title>
+    <style>
+body{
+    background-color: #1E2434;
+    
+}
+.arac-bilgi{
+flex: 2;
+border: 2px solid black;
+ border-radius: 8px;
+ width: 600px;
+ padding-left: 30px;
+ padding-top: 5px;
+ padding-bottom: 15px;
+ padding-right: 10px;
+}
+.arac-bilgi select{
+    width: 200px;
+    height: 30px;
+    border-radius: 8px;
+}
+.arac-bilgi input{
+    width: 200px;
+    height: 30px;
+    border-radius: 8px;
+}
+#buton1{
+    width: 150px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: darkgreen;
+    color: whitesmoke;
+}
+#buton2{
+    width: 150px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: #1E2434;
+    color: whitesmoke;
+}
+.ucret-sonuc{
+flex: 1;
+border: 2px solid black;
+ border-radius: 8px;
+ padding-left: 10px;
+ padding-right: 10px;
+
+}
+.islemler{
+display: flex;
+border: 2px solid black;
+ border-radius: 8px;
+ margin-bottom: 5px;
+ color: whitesmoke;
+ padding-left: 50px;
+}
+.rapor{
+display: flex;
+border: 2px solid black;
+border-radius: 8px;
+color: whitesmoke;
+ padding-left: 50px;
+
+}
+.box{
+display: flex;
+color: whitesmoke;
+gap: 10px;
+}
+.toplamUcret{
+width: 100px;
+height: 50px;
+text-align: center;
+justify-content: center;}
+.arac{
+flex: 1;
+}
+.ucret{
+flex: 1;
+}
+.saat{
+flex: 1;
+}
+.hizmet{
+flex: 1;
+}
+.gun-sonu{
+    flex: 1;
+    color: whitesmoke;
+}
+.toplamUcret{
+flex: 1;
+}
+.ort-ucret{
+flex: 1;
+}
+.top-ucret{
+flex: 1;
+}
+.en-pahali{
+flex: 1;
+}
+.avm{
+text-align: center;
+color: whitesmoke;
+}
+.sil{
+    background: none;
+}
+.sifirla{
+    background-color: blue;
+    border-radius: 25px;
+    width: 150px;
+    height: 30px;
+    font-size: 15px;
+position: absolute; right: 0 ; top: 15px ;}
+#liste{
+    display:flex;
+    flex-direction: column;
+}
+
+    </style>
+</head>
+<body>
+    <h1 class="avm">AVM Otopark Yönetim Sistemi</h1>
+    <button class="sifirla">Günü Sıfırla</button>
+    <div class="box">
+    <div class="arac-bilgi">
+       <h3>Araç Bilgileri</h3><hr>
+       <h4>Araç tipi</h4>
+       <select name="arac" id="arac">
+    <option value="kamyonet" id="kamyonet">Kamyonet</option>
+    <option value="otomobil" id="otomobil">otomobil</option>
+    <option value="motosiklet" id="motosiklet">Motosiklet</option>
+    <option value="minibüs" id="minibüs">Minibüs</option>
+</select>
+<h4>Kalınan Saat</h4>
+    <input type="number" name="" id="saat">
+    <h4>Ek Hizmet</h4>
+       <select name="hizmet" id="ekHizmet">
+    <option value="yıkama" id="yikama">Yıkama</option>
+    <option value="vale" id="vale">Vale</option>
+    <option value="lastik" id="lastik">Lastik Kontrol</option>
+    <option value="hizmet-yok" id="hizmetYok">Hizmet Yok</option>
+</select><br><br>
+<button id="buton1" onclick="hesapla()">Ücreti Hesapla</button>
+<button id="buton2">Aracı Listeye Ekle</button>
+    </div>
+<div class="ucret-sonuc">
+    <h3>Ücret Sonucu</h3><hr>
+    <h4>Saatlik Ücret</h4><p id="saatlik" onclick="saatlikUcre()"></p><hr>
+    <h4>Ek Hizmet</h4><p id="hizmetSonuc"></p> <hr>
+    <div class="toplamUcret"><h4>Toplam Ücret</h4> <p id="sonuc"></p></div>
+</div>
+</div>
+<h3 style="color: whitesmoke;" id="bugun">Bugunki İşlemler</h3>
+<div class="remove">
+<div class="islemler" id="islem">
+<div class="arac"> <h4>Araç</h4></div>
+<div class="saat"> <h4>Saat</h4></div>
+<div class="hizmet"> <h4>Hizmet</h4></div>
+<div class="ucret"> <h4>Ücret</h4></div>
+</div>
+
+
+
+<div id="liste"></div>
+<div class="gun-sonu"> <h3>Gün Sonu Raporu</h3></div>
+<div class="rapor" id="rapor">
+<!-- <div class="gun-sonu"> <h3>Gün Sonu Raporu</h3></div> -->
+<div class="top-ucret"> <h4>Toplam Ücret</h4></div>
+<div class="ort-ucret"> <h4>Ortalama Ücret</h4></div>
+<div class="en-pahali"> <h4>En Pahalı İşlem </h4></div>
+</div>
+<div class="rapor" id="rapor2">
+<!-- <div class="gun-sonu"> <h3>Gün Sonu Raporu</h3></div> -->
+<div class="top-ucret" id="topUcret"> </div>
+<div class="ort-ucret" id="ort-ucret"> </div>
+<div class="en-pahali" id="en-pahali"></div>
+</div>
+<div id="raporSatirlari"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="otopark.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+</body>
+</html>
